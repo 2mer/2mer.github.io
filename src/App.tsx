@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import CursorStyles from './elements/CursorStyles'
 import MainScreen from './screens/MainScreen/MainScreen'
+import Demo from './screens/PIXIL/Demo'
 import Game from './screens/RogueEx/Game'
 import theme from './Theme'
 
@@ -40,6 +41,7 @@ export default function App() {
 				</MuiThemeProvider>
 			} />
 			<Route path="/RogueEx/*" element={<Game />} />
+			<Route path="/PIXIL/*" element={<Demo />} />
 		</Routes>
 	)
 }
