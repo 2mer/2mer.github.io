@@ -7,7 +7,7 @@ specifiers:
   '@mantine/prism': ^5.2.3
   '@material-ui/core': ^4.11.4
   '@material-ui/styles': ^4.11.5
-  '@sgty/pixil': 1.0.10
+  '@sgty/pixil': 1.0.11
   '@types/color': ^3.0.3
   '@types/react': ^18.0.17
   '@types/react-dom': ^18.0.6
@@ -41,7 +41,7 @@ dependencies:
   '@mantine/prism': 5.2.3_frmz67pnoqji7xpi5ewg3uhgke
   '@material-ui/core': 4.12.4_x6vcehmdzjj6pm7ndhhuigqb3i
   '@material-ui/styles': 4.11.5_x6vcehmdzjj6pm7ndhhuigqb3i
-  '@sgty/pixil': 1.0.10
+  '@sgty/pixil': 1.0.11
   color: 4.2.3
   gooey-react: 1.1.0_react@17.0.2
   immer: 9.0.15
@@ -1126,8 +1126,8 @@ packages:
     resolution: {integrity: sha512-wmjcKMK4XXcj9Mi2x3vPpiuxwTNUdqv2LPILfCclju3eS75xbQB9IXgTd4SP+sXya8E2hkmbOHabotEfQdameg==}
     dev: false
 
-  /@sgty/pixil/1.0.10:
-    resolution: {integrity: sha512-c+FT6Urmz+QYyDiVwSio0UkohAAzloUr6feCGQS3KvJzW5cuaXquc+SKrGcZGXZneQXgKfn2p7IjW0RTR5vP6Q==}
+  /@sgty/pixil/1.0.11:
+    resolution: {integrity: sha512-JWEudfMOohzXBm/90UyR1ZlTF2pzYFiqvTqwkBmyaBdk19nUoiUFrh+B/A44P5jrFpETUL1BTyrRhPIRtDt5Sw==}
     dependencies:
       '@sgty/m-it': 1.0.2
       color: 4.2.3

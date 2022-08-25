@@ -29,7 +29,7 @@ export default function Demo() {
 
 		const brush = new Brush(editor, { buttons: [0] })
 		const pan = new Pan(editor)
-		const eraser = new Eraser(editor)
+		const eraser = new Eraser(editor, { buttons: [0] })
 
 		const tools = [
 			{ value: "brush", label: <BrushIcon key="brush" />, tool: brush },
@@ -57,6 +57,8 @@ export default function Demo() {
 			const tool = tools.find(t => t.value === selectedTool)?.tool
 			if (tool) {
 				editor.addTool(tool)
+
+				console.log(tool)
 
 				if (tool instanceof Brush) {
 
