@@ -1,13 +1,19 @@
 @keyframes breathe {
-	from { opacity: 0.8}
-	to { opacity: 0.2}
+	0% { opacity: 0.8}
+	49% { opacity: 0.8}
+	50% { opacity: 0}
+	99% { opacity: 0}
+	100% { opacity: 0.8}
 }
 
 .caret {
-	animation: breathe 1.5s infinite alternate-reverse;
+	animation: breathe 2s infinite;
 	width: 0.1em;
 	height: 1em;
 	display: inline-block;
-	background-color: white;
 	transform: translateY(0.18em);
+}
+
+html, body, #app {
+	background: #141517
 }

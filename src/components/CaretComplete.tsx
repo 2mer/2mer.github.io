@@ -20,7 +20,10 @@ function CaretComplete({ texts, intervalMS = 5_000 }) {
 		<>
 			<Popover opened position='bottom-start' radius={0}>
 				<Popover.Target>
-					<div className='caret' />
+					<div
+						className='caret'
+						style={{ background: theme.colors.blue[3] }}
+					/>
 				</Popover.Target>
 				<Popover.Dropdown p={0}>
 					<Table highlightOnHover withBorder>
