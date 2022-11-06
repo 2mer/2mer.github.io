@@ -1,0 +1,13 @@
+@keyframes breathe {
+	from { opacity: 0.8}
+	to { opacity: 0.2}
+}
+
+.caret {
+	animation: breathe 1.5s infinite alternate-reverse;
+	width: 0.1em;
+	height: 1em;
+	display: inline-block;
+	background-color: white;
+	transform: translateY(0.18em);
+}
