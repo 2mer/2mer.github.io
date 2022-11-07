@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import axios from 'axios';
 import { useMemo, useState } from 'preact/hooks';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { Search } from 'tabler-icons-react';
 
 const fetcher = () =>
@@ -37,7 +37,10 @@ function confidenceToColor(confidence) {
 }
 
 function Skillset() {
-	const { data, isValidating, error } = useSWR('experience', fetcher);
+	const { data, isValidating, error } = useSWRImmutable(
+		'experience',
+		fetcher
+	);
 	const [filter, setFilter] = useState('');
 	const [selectedCategories, setSelectedCategories] = useState({});
 	const filteredKnowledge = useMemo(() => {
@@ -48,7 +51,6 @@ function Skillset() {
 		);
 
 		const categoryArray = getCategoriesArray(selectedCategories);
-		console.log(selectedCategories, categoryArray);
 
 		if (!filter && !categoryArray.length) return entries;
 
@@ -67,7 +69,11 @@ function Skillset() {
 	return (
 		<Container
 			size={700}
-			style={{ background: 'transparent', minHeight: '400px' }}
+			style={{
+				background: 'transparent',
+				minHeight: '400px',
+				marginTop: '200px',
+			}}
 		>
 			<Title order={1} style={{ fontSize: 50 }} mb='xs'>
 				Skill-set

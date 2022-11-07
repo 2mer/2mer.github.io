@@ -6,9 +6,6 @@ import {
 	Group,
 	List,
 } from '@mantine/core';
-import gsap from 'gsap';
-import { useEffect } from 'preact/hooks';
-import SplitType from 'split-type';
 import { BrandGithub, BrandLinkedin } from 'tabler-icons-react';
 import CaretComplete from './CaretComplete';
 
@@ -25,11 +22,11 @@ const useStyles = createStyles((theme) => ({
 	inner: {
 		position: 'relative',
 		paddingTop: 200,
-		paddingBottom: 120,
+		paddingBottom: 200,
 
 		[BREAKPOINT]: {
 			paddingBottom: 80,
-			paddingTop: 80,
+			paddingTop: 120,
 		},
 	},
 
@@ -83,11 +80,6 @@ const aliases = ['2mer', 'Tomer', 'Atar'];
 
 export function Hero() {
 	const { classes } = useStyles();
-
-	useEffect(() => {
-		const text = new SplitType('#heroName');
-		gsap.to(text.chars, { y: 0, stagger: 0.05, delay: 0.2, duration: 0.1 });
-	}, []);
 
 	return (
 		<div className={classes.wrapper}>
