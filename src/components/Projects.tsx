@@ -1,8 +1,9 @@
-import { Container, Stack, Title, Transition } from '@mantine/core';
+import { Container, Stack, Title } from '@mantine/core';
 import axios from 'axios';
-import { useMemo, useState } from 'preact/hooks';
+import { useMemo } from 'preact/hooks';
 import useSWRImmutable from 'swr/immutable';
 import ProjectCarousel from './ProjectCarousel';
+import { motion } from 'framer-motion';
 
 const fetcher = async () =>
 	axios
@@ -26,6 +27,14 @@ const chunkArray = <T,>(arr: T[], chunkSize, lengthThreshold) => {
 	return chunks;
 };
 
+const container = {
+	hidden: { opacity: 0 },
+	shown: {
+		opacity: 1,
+		transition: { delay: 0, staggerChildren: 0.01 },
+	},
+};
+
 function Projects() {
 	const { data, isValidating, error } = useSWRImmutable('repos', fetcher);
 
@@ -40,30 +49,18 @@ function Projects() {
 	if (error) return null;
 
 	return (
-		<Transition
-			mounted={Boolean(data)}
-			transition='fade'
-			duration={400}
-			timingFunction='ease'
-		>
-			{(styles) => (
-				<>
-					<Container size={700} style={styles}>
-						<Title order={1} style={{ fontSize: 50 }} mb='xs'>
-							Projects
-						</Title>
-					</Container>
-					<Stack style={styles}>
-						{chunks.map((chunk, i) => (
-							<ProjectCarousel
-								projects={chunk}
-								offset={(i + 1) * 1000}
-							/>
-						))}
-					</Stack>
-				</>
-			)}
-		</Transition>
+		<motion.div variants={container} initial='hidden' whileInView='shown'>
+			<Container size={700}>
+				<Title order={1} style={{ fontSize: 50 }} mb='xs'>
+					Projects
+				</Title>
+			</Container>
+			<Stack style={{ overflow: 'hidden' }}>
+				{chunks.map((chunk, i) => (
+					<ProjectCarousel projects={chunk} offset={(i + 1) * 1000} />
+				))}
+			</Stack>
+		</motion.div>
 	);
 }
 

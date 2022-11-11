@@ -5,25 +5,32 @@ import { AlphabetLatin } from 'tabler-icons-react';
 function CaretComplete({ texts, intervalMS = 5_000 }) {
 	const [index, setIndex] = useState(0);
 	const theme = useMantineTheme();
+	const [completed, setCompleted] = useState(false);
 
 	useEffect(() => {
-		const interval = setInterval(() => {
-			setIndex((prev) => (prev + 1 < texts.length ? prev + 1 : 0));
-		}, intervalMS);
+		if (!completed) {
+			const interval = setInterval(() => {
+				setIndex((prev) => (prev + 1 < texts.length ? prev + 1 : 0));
+			}, intervalMS);
 
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
+			return () => {
+				clearInterval(interval);
+			};
+		}
+	}, [completed]);
 
 	return (
 		<>
-			<Popover opened position='bottom-start' radius={0}>
+			<Popover opened={!completed} position='bottom-start' radius={0}>
 				<Popover.Target>
-					<div
-						className='caret'
-						style={{ background: theme.colors.blue[3] }}
-					/>
+					{completed ? (
+						<span />
+					) : (
+						<div
+							className='caret'
+							style={{ background: theme.colors.blue[3] }}
+						/>
+					)}
 				</Popover.Target>
 				<Popover.Dropdown p={0}>
 					<Table highlightOnHover withBorder>
@@ -33,6 +40,10 @@ function CaretComplete({ texts, intervalMS = 5_000 }) {
 
 								return (
 									<tr
+										onClick={() => {
+											setIndex(i);
+											setCompleted(true);
+										}}
 										style={
 											isSelected
 												? {
@@ -67,7 +78,11 @@ function CaretComplete({ texts, intervalMS = 5_000 }) {
 					</Table>
 				</Popover.Dropdown>
 			</Popover>
-			<Text inherit style={{ opacity: 0.2 }} component='span'>
+			<Text
+				inherit
+				style={completed ? undefined : { opacity: 0.2 }}
+				component='span'
+			>
 				{texts[index]}
 			</Text>
 		</>

@@ -12,13 +12,13 @@ import {
 	Title,
 } from '@mantine/core';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import { useMemo, useState } from 'preact/hooks';
 import useSWRImmutable from 'swr/immutable';
 import { Search } from 'tabler-icons-react';
 
 const fetcher = () =>
 	axios.get(
-		// 'https://raw.githubusercontent.com/2mer/cms/main/portfolio/experience.json'
 		'https://raw.githubusercontent.com/2mer/cms/main/portfolio/experience.json'
 	);
 
@@ -35,6 +35,16 @@ function confidenceToColor(confidence) {
 	if (confidence >= 0.6) return 'orange';
 	return 'red';
 }
+
+const MotionContainer = motion(Container);
+
+const container = {
+	hidden: { opacity: 0 },
+	shown: {
+		opacity: 1,
+		transition: { delay: 0, staggerChildren: 0.01 },
+	},
+};
 
 function Skillset() {
 	const { data, isValidating, error } = useSWRImmutable(
@@ -56,10 +66,14 @@ function Skillset() {
 
 		return entries.filter(
 			(entry) =>
-				entry.name.toLowerCase().includes(filter.toLowerCase()) &&
-				categoryArray.some((category) =>
-					entry?.tags?.contains(category)
-				)
+				(filter
+					? entry.name.toLowerCase().includes(filter.toLowerCase())
+					: true) &&
+				(categoryArray.length
+					? categoryArray.some((category) =>
+							entry?.tags?.includes(category)
+					  )
+					: true)
 		);
 	}, [data, filter, selectedCategories]);
 
@@ -67,13 +81,16 @@ function Skillset() {
 	if (error) return null;
 
 	return (
-		<Container
+		<MotionContainer
 			size={700}
 			style={{
 				background: 'transparent',
 				minHeight: '400px',
 				marginTop: '200px',
 			}}
+			variants={container}
+			initial='hidden'
+			whileInView='shown'
 		>
 			<Title order={1} style={{ fontSize: 50 }} mb='xs'>
 				Skill-set
@@ -83,7 +100,7 @@ function Skillset() {
 				{/* filters */}
 				<Group noWrap position='apart' align='center' mb='xl'>
 					<Group noWrap>
-						{['web', 'backend', 'design'].map((t) => {
+						{['frontend', 'backend', 'design'].map((t) => {
 							const isSelected = selectedCategories[t];
 
 							return (
@@ -132,7 +149,11 @@ function Skillset() {
 										{entry.name}
 									</Highlight>
 								</td>
-								<td>
+								<motion.td
+									initial={{ scaleX: 0 }}
+									whileInView={{ scaleX: 1 }}
+									style={{ width: '250px' }}
+								>
 									<Box
 										h='8px'
 										bg={confidenceToColor(entry.confidence)}
@@ -141,7 +162,7 @@ function Skillset() {
 											borderRadius: '50px',
 										}}
 									/>
-								</td>
+								</motion.td>
 							</tr>
 						))}
 					</tbody>
@@ -152,7 +173,7 @@ function Skillset() {
 					</Text>
 				)}
 			</Card>
-		</Container>
+		</MotionContainer>
 	);
 }
 

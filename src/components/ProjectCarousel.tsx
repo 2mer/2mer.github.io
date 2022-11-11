@@ -8,19 +8,18 @@ import {
 	Text,
 	Title,
 } from '@mantine/core';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 
 const CAROUSEL_WIDTH = 350;
 const CAROUSEL_HEIGHT = 250;
 const GUTTER = 8;
 
 function ProjectCarousel({ projects, offset }) {
-	const [animationEnabled, setAnimationEnabled] = useState(true);
 	const containerRef = useRef<Element>();
 
 	useEffect(() => {
-		const rect = containerRef.current!.getBoundingClientRect();
 		const slides = [
 			...(containerRef.current?.querySelectorAll('.carouselSlide') ?? []),
 		];
@@ -53,44 +52,51 @@ function ProjectCarousel({ projects, offset }) {
 		>
 			<Box pos='absolute' left={`-${CAROUSEL_WIDTH}px`}>
 				{projects.map((project: any) => (
-					<Box
-						pos='absolute'
-						h={CAROUSEL_HEIGHT}
-						w={CAROUSEL_WIDTH + 2 * GUTTER}
-						p={`0 ${GUTTER}px`}
-						className='carouselSlide'
+					<motion.div
+						variants={{
+							hidden: { opacity: 0, y: -50 },
+							shown: { opacity: 1, y: 0 },
+						}}
 					>
-						<Card
+						<Box
+							pos='absolute'
 							h={CAROUSEL_HEIGHT}
-							w={CAROUSEL_WIDTH}
-							shadow='sm'
-							onClick={() => {
-								window.open(project.link);
-							}}
-							style={{ cursor: 'pointer' }}
+							w={CAROUSEL_WIDTH + 2 * GUTTER}
+							p={`0 ${GUTTER}px`}
+							className='carouselSlide'
 						>
-							<Group noWrap position='apart' align='start'>
-								<Stack>
-									<Title>{project.displayName}</Title>
-									{project.description && (
-										<Text>{project.description}</Text>
+							<Card
+								h={CAROUSEL_HEIGHT}
+								w={CAROUSEL_WIDTH}
+								shadow='sm'
+								onClick={() => {
+									window.open(project.link);
+								}}
+								style={{ cursor: 'pointer' }}
+							>
+								<Group noWrap position='apart' align='start'>
+									<Stack>
+										<Title>{project.displayName}</Title>
+										{project.description && (
+											<Text>{project.description}</Text>
+										)}
+										<Group>
+											{project.tags.map((tag) => (
+												<Badge>{tag}</Badge>
+											))}
+										</Group>
+									</Stack>
+									{project.icon && (
+										<Image
+											src={project.icon}
+											width='60px'
+											height='60px'
+										/>
 									)}
-									<Group>
-										{project.tags.map((tag) => (
-											<Badge>{tag}</Badge>
-										))}
-									</Group>
-								</Stack>
-								{project.icon && (
-									<Image
-										src={project.icon}
-										width='60px'
-										height='60px'
-									/>
-								)}
-							</Group>
-						</Card>
-					</Box>
+								</Group>
+							</Card>
+						</Box>
+					</motion.div>
 				))}
 			</Box>
 		</Box>

@@ -7,18 +7,23 @@ import {
 	Text,
 	Tooltip,
 } from '@mantine/core';
+import { motion } from 'framer-motion';
 import { Check, Copy } from 'tabler-icons-react';
 
 const email = 'kenyweb7+contact@gmail.com';
 
+const MotionContainer = motion(Container);
+
 function Contact() {
 	return (
 		<Box bg='blue.5' w='100%'>
-			<Container
+			<MotionContainer
 				size={700}
 				bg='blue.5'
 				p='md'
 				style={{ minHeight: '200px' }}
+				initial={{ opacity: 0, translateX: 50 }}
+				whileInView={{ opacity: 1, translateX: 0 }}
 			>
 				<Text color='gray.9' fw={800} fz='40px'>
 					Contact me
@@ -54,7 +59,7 @@ function Contact() {
 						)}
 					</CopyButton>
 				</Group>
-			</Container>
+			</MotionContainer>
 		</Box>
 	);
 }

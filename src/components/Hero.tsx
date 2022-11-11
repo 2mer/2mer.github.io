@@ -6,6 +6,7 @@ import {
 	Group,
 	List,
 } from '@mantine/core';
+import { motion } from 'framer-motion';
 import { BrandGithub, BrandLinkedin } from 'tabler-icons-react';
 import CaretComplete from './CaretComplete';
 
@@ -76,13 +77,19 @@ const useStyles = createStyles((theme) => ({
 	},
 }));
 
+const MotionGroup = motion(Group);
+
 const aliases = ['2mer', 'Tomer', 'Atar'];
 
 export function Hero() {
 	const { classes } = useStyles();
 
 	return (
-		<div className={classes.wrapper}>
+		<motion.div
+			className={classes.wrapper}
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+		>
 			<Container size={700} className={classes.inner}>
 				<h1 className={classes.title}>
 					Hi I'm&nbsp;
@@ -109,16 +116,12 @@ export function Hero() {
 					</List.Item>
 				</List>
 
-				<Group className={classes.controls}>
-					{/* <Button
-						size='xl'
-						className={classes.control}
-						variant='gradient'
-						gradient={{ from: 'blue', to: 'cyan' }}
-					>
-						Get started
-					</Button> */}
-
+				<MotionGroup
+					className={classes.controls}
+					initial={{ opacity: 0, x: -50 }}
+					whileInView={{ opacity: 1, x: 0 }}
+					transition={{ ease: 'easeOut', duration: 1 }}
+				>
 					<Button
 						component='a'
 						href='https://il.linkedin.com/in/tomer-atar-9881b215b'
@@ -126,6 +129,9 @@ export function Hero() {
 						variant='default'
 						className={classes.control}
 						leftIcon={<BrandLinkedin size={20} />}
+						initial={{ opacity: 0, x: -50 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ ease: 'easeOut', duration: 1 }}
 					>
 						LinkedIn
 					</Button>
@@ -139,8 +145,8 @@ export function Hero() {
 					>
 						GitHub
 					</Button>
-				</Group>
+				</MotionGroup>
 			</Container>
-		</div>
+		</motion.div>
 	);
 }
