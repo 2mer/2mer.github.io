@@ -1,0 +1,1 @@
+@keyframes breathe{0%{opacity:.8}49%{opacity:.8}50%{opacity:0}99%{opacity:0}to{opacity:.8}}.caret{animation:breathe 2s infinite;width:.1em;height:1em;display:inline-block;transform:translateY(.18em)}html,body,#app{background:#141517}
