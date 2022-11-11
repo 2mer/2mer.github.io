@@ -13,11 +13,11 @@ cd dist
 echo > .nojekyll
 
 git init
-git checkout -B main
+git checkout -B gh-pages
 git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io
-git push -f git@github.com:2mer/2mer.github.io.git gh-pages
+git push -f https://github.com/2mer/2mer.github.io.git gh-pages
 
 cd -
